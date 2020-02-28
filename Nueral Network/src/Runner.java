@@ -44,10 +44,10 @@ public class Runner
 			
 //			Img thepic = new Img("a6.png", 1);
 //			printJFrame(thepic, 10);
-			for(ImageArray i: getTrainingData(5)) {
-				printJFrame(i.getTwoDArray(), 7);
-				System.out.println(i.getTheLabel());
-			}
+//			for(ImageArray i: getTrainingData(5)) {
+//				printJFrame(i.getTwoDArray(), 7);
+//				System.out.println(i.getTheLabel());
+//			}
 //			
 //OutputNeuron theOutput = new OutputNeuron();
 //		

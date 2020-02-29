@@ -22,7 +22,7 @@ public class Runner
 
 		public static void main(String[] args)
 			{
-			
+
 //			MySQLAccess dao = new MySQLAccess();
 //	        try {
 //				dao.readDataBase("vogella_blog");
@@ -30,7 +30,7 @@ public class Runner
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-      
+
 //String[] commands = {"cd /usr/local/mysql/bin/;ls", "./mysql -u root password \'KCkicks07\'"};
 //String logout = "\\q";
 //runCommand(logout);
@@ -85,7 +85,9 @@ System.out.print(i + " ");
 			return results;
 		}
 		
-		
+		public static int randomInt(int range1, int range2) {
+			return (int) Math.random()*(range2 - range1 + 1) ;
+		}
 		
 		public static void printJFrame(Img image, int scaleFactor) {
 			int[][] data = image.findImg();

@@ -88,10 +88,12 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 	int[] ints = new int[byteArray.length /4];
 	int counter1 = 0;
 	for(int i = 0; i < byteArray.length; i+=4) {
-	int value = (byteArray[i + 3] << (Byte.SIZE * 3));
-    value |= (byteArray[i + 2] & 0xFF) << (Byte.SIZE * 2);
-    value |= (byteArray[i + 1] & 0xFF) << (Byte.SIZE * 1);
-    value |= (byteArray[i] & 0xFF);
+		byte[] bytes = new byte[4];
+		bytes[0] = byteArray[i];
+		bytes[1] = byteArray[i + 1];
+		bytes[2] = byteArray[i + 2];
+		bytes[3] = byteArray[i + 3];
+		int value = ByteBuffer.wrap(bytes).getInt();
     ints[counter1] = value;
     counter1 ++;
 	}

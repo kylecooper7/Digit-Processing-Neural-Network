@@ -13,3 +13,4 @@ public class InputNueron extends Nueron
 		this.value = value;
 	}
 }
+

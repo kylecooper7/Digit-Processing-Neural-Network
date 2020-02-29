@@ -35,10 +35,15 @@ public class Runner
 //String logout = "\\q";
 //runCommand(logout);
 //			
-      
-			
-
-  
+      int[] test = {2, 45, 678, 900};
+      int[] test2 = Network.byteArrayToIntArray(Network.intArrayToByteArray(test));
+	  	
+for(Integer i: test) {
+System.out.print(i + " ");	
+}
+for(Integer i: test2) {
+System.out.print(i + " ");	
+}
 			
 
 			

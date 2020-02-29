@@ -8,18 +8,16 @@ public class Network {
 protected int numberOfLayers;
 protected int[] lengthOfLayers;
 protected Nueron[][][] theNetworkArray;
-static String fileLocation = "/Users/kyle/eclipse-workspace/Nueral Network/";
+static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
 	numberOfLayers = number_Of_Layers;
 	lengthOfLayers = length_Of_Layers;
 	File file = new File(fileLocation + dataFileName);
-	if(file.exists()) {
-	fillFile();
+	if(! file.exists()) {
+		newFile(file, number_Of_Layers, length_Of_Layers);
 	}
-	else {
-	newFile(file, number_Of_Layers, length_Of_Layers);	
-	}
+	theNetworkArray = getTheNetworkArray();
 	
 	
 	
@@ -68,18 +66,13 @@ static String fileLocation = "/Users/kyle/eclipse-workspace/Nueral Network/";
 	}
 	
 
-public static void fillFile() {
-	
-	
-	
-	
-		
-	}
+
 public static byte[] intArrayToByteArray(int[] intArray) {
 	byte[] bytes = new byte[intArray.length * 4];
-	ByteBuffer bb = ByteBuffer.allocate(4); 
+	
 	int counter1 = 0;
 	for(Integer i: intArray) {
+		ByteBuffer bb = ByteBuffer.allocate(4); 
 		bb.putInt(i);
 		byte[] beets = bb.array();
 		for(byte b: beets) {
@@ -88,6 +81,20 @@ public static byte[] intArrayToByteArray(int[] intArray) {
 		}
 	}
 	return bytes;
+}
+public static int[] byteArrayToIntArray(byte[] byteArray) {
+	int[] ints = new int[byteArray.length /4];
+	int counter1 = 0;
+	for(int i = 0; i < byteArray.length; i+=4) {
+	int value = (byteArray[i + 3] << (Byte.SIZE * 3));
+    value |= (byteArray[i + 2] & 0xFF) << (Byte.SIZE * 2);
+    value |= (byteArray[i + 1] & 0xFF) << (Byte.SIZE * 1);
+    value |= (byteArray[i] & 0xFF);
+    ints[counter1] = value;
+    counter1 ++;
+	}
+    
+	return ints;
 }
 	
 	
@@ -108,9 +115,18 @@ public static byte[] intArrayToByteArray(int[] intArray) {
 		this.lengthOfLayers = lengthOfLayers;
 	}
 	public Nueron[][][] getTheNetworkArray() {
+		
+		
+		
+		
 		return theNetworkArray;
 	}
 	public void setTheNetworkArray(Nueron[][][] theNetworkArray) {
+		
+		
+		
+		
+		
 		this.theNetworkArray = theNetworkArray;
 	}
 	

@@ -1,6 +1,9 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
@@ -10,14 +13,22 @@ public class Network {
 protected int numberOfLayers;
 protected int[] lengthOfLayers;
 protected int lengthOfDataFile;
+protected int[] lengthData;
 protected File theFile;
-protected Nueron[][][] theNetworkArray;
+protected Nueron[][] theNetworkArray;
 static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
 	numberOfLayers = number_Of_Layers;
 	lengthOfLayers = length_Of_Layers;
 	int lengthOfDataFile2 = 1 + length_Of_Layers.length ;
+	int[] lengthData2 = new int[lengthOfDataFile2];
+	lengthData2[0] = number_Of_Layers;
+	
+	for(int i = 0; i < length_Of_Layers.length; i++) {
+	lengthData2[i + 1]	= length_Of_Layers[i];
+	}
+	lengthData = lengthData2;
 	for(int i = 1; i < length_Of_Layers.length; i++) {
 		lengthOfDataFile2 +=  length_Of_Layers[i] * ( 1 + length_Of_Layers[i - 1]);
 	}
@@ -26,7 +37,7 @@ static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
 	
 	theFile = new File(fileLocation + dataFileName);
 	
-	if(! theFile.exists()) {
+	if(! (theFile.exists())) {
 		newFile();
 	}
 	theNetworkArray = getTheNetworkArray();
@@ -68,10 +79,6 @@ static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
 // change from int array to byte array and outputStream.write the byte Array
 		byte[] dataAsBytes = intArrayToByteArray(intArray);
 		outputStream.write(dataAsBytes);
-		
-		
-		
-		
 		outputStream.close();
 	}
 	
@@ -151,8 +158,31 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 }
 	
 	
-	public void updateDataFile(Nueron[][][] theNetworkArray2) {
+	public void updateDataFile(Nueron[][] theNetworkArray2) throws IOException {
 		//need to implement
+		int[] toTheFile = new int[lengthOfDataFile];
+		
+		for(int i = 0; i < lengthData.length; i++) {
+			toTheFile[i] = lengthData[i];
+		}
+		int counter = lengthData.length;
+		for(int layer = 1; layer < theNetworkArray2.length; layer++) {
+			for(int nueron = 0; nueron < theNetworkArray2[layer].length; nueron++) {
+				toTheFile[counter] = ((ReceptorNueron)theNetworkArray2[layer][nueron]).getBias();
+				counter++;
+				for(int i = 0; i < ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeight().length; i++) {
+					toTheFile[counter] = ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeight()[i];
+					counter++;
+				}
+				
+				
+			}
+		}
+		OutputStream outputStream = new FileOutputStream(theFile);
+		
+		outputStream.write(intArrayToByteArray(toTheFile));
+		outputStream.close();
+		
 		
 	}
 	
@@ -168,14 +198,43 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 	public void setLengthOfLayers(int[] lengthOfLayers) {
 		this.lengthOfLayers = lengthOfLayers;
 	}
-	public Nueron[][][] getTheNetworkArray() {
-		Nueron[][][] theNetworkArray2 = new Nueron[numberOfLayers][][];
+	public Nueron[][] getTheNetworkArray() throws IOException {
+		Nueron[][] theNetworkArray2 = new Nueron[numberOfLayers][];
+		for(int i = 0; i < numberOfLayers; i++) {
+			theNetworkArray2[i] = new Nueron[lengthOfLayers[i] ];
+		}
 		// implement
+		// input nuerons have value 0 by default
+		for(int i = 0; i < theNetworkArray2[0].length; i++) {
+			theNetworkArray2[0][i] = new InputNueron(0, 0);
+		}
 		
-		
+        InputStream inputStream = new FileInputStream(theFile);
+		byte[] bytesRead = new byte[lengthOfDataFile * 4];
+		inputStream.read(bytesRead,  0,  lengthOfDataFile * 4);
+        inputStream.close();
+        int[] intsRead = byteArrayToIntArray(bytesRead);
+        int counter = 0;
+    	for(int layer = 1; layer < theNetworkArray2.length; layer++) {
+			for(int nueron = 0; nueron < theNetworkArray2[layer].length; nueron++) {
+				int bias = intsRead[counter];
+				counter++;
+				int weights[] = new int[lengthOfLayers[layer - 1]];
+				for(int i = 0; i < lengthOfLayers[layer - 1]; i++) {
+					weights[i] = intsRead[counter];
+					counter++;
+				}
+				theNetworkArray2[layer][nueron] = new ReceptorNueron(layer, 0, bias, weights);
+				
+				
+			}
+		}
+	
+        
+        
 		return theNetworkArray2;
 	}
-	public void setTheNetworkArray(Nueron[][][] theNetworkArray) {
+	public void setTheNetworkArray(Nueron[][] theNetworkArray) throws IOException {
 		updateDataFile(theNetworkArray);
 		
 	}

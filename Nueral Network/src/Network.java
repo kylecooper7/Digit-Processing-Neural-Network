@@ -82,6 +82,7 @@ public static byte[] intArrayToByteArray(int[] intArray) {
 	}
 	return bytes;
 }
+
 public static int[] byteArrayToIntArray(byte[] byteArray) {
 	int[] ints = new int[byteArray.length /4];
 	int counter1 = 0;

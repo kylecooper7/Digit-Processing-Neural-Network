@@ -85,9 +85,6 @@ System.out.print(i + " ");
 			return results;
 		}
 		
-		public static int randomInt(int range1, int range2) {
-			return (int) Math.random()*(range2 - range1 + 1) ;
-		}
 		
 		public static void printJFrame(Img image, int scaleFactor) {
 			int[][] data = image.findImg();

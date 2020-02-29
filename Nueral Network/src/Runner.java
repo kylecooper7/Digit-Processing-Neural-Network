@@ -36,8 +36,7 @@ public class Runner
 //runCommand(logout);
 //			
       int[] test = {2, 45, 678, 900};
-      int[] test2 = Network.byteArrayToIntArray(Network.intArrayToByteArray(test));
-	  	
+      int[] test2 = Network.byteArrayToIntArray(Network.intArrayToByteArray(test));	  	
 for(Integer i: test) {
 System.out.print(i + " ");	
 }

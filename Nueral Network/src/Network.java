@@ -7,15 +7,16 @@ import java.nio.ByteBuffer;
 public class Network {
 protected int numberOfLayers;
 protected int[] lengthOfLayers;
+protected File theFile;
 protected Nueron[][][] theNetworkArray;
 static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
 	numberOfLayers = number_Of_Layers;
 	lengthOfLayers = length_Of_Layers;
-	File file = new File(fileLocation + dataFileName);
-	if(! file.exists()) {
-		newFile(file, number_Of_Layers, length_Of_Layers);
+	theFile = new File(fileLocation + dataFileName);
+	if(! theFile.exists()) {
+		newFile(theFile, number_Of_Layers, length_Of_Layers);
 	}
 	theNetworkArray = getTheNetworkArray();
 	

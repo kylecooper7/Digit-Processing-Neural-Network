@@ -38,7 +38,7 @@ static boolean onJacksComputer = false;
 
 			
 				// The Actual Stuff
-			for(ImageArray i: getTrainingData(5)) {
+			for(ImageArray i: getTrainingData(5, 5)) {
 				printJFrame(i.getTwoDArray(), 7);
 				System.out.println(i.getTheLabel() + ":");
 				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
@@ -126,7 +126,7 @@ static boolean onJacksComputer = false;
 			
 		}
 		
-		public static ArrayList<ImageArray> getTrainingData(int unloadCap){
+		public static ArrayList<ImageArray> getTrainingData(int start, int unloadCap){
 			ArrayList<ImageArray> theFiles= new ArrayList<ImageArray>();
 			BufferedReader csvReader = null;
 			int counter1 = 0;
@@ -146,7 +146,8 @@ static boolean onJacksComputer = false;
 				e.printStackTrace();
 			}
 			
-			while (row != null && counter1< unloadCap) {
+			while (row != null && counter1< unloadCap + start) {
+				if(counter1 >= start) {
 			    String[] data = row.split(",");
 			    int[] intArray = new int[data.length -1];
 			    //
@@ -167,13 +168,18 @@ static boolean onJacksComputer = false;
 			    }
 			    theFiles.add(new ImageArray(pixels, intArray, Integer.parseInt(data[0])));
 			    
-			    counter1++;
+				}
+				counter1++;
+			    
 			    try {
 					row = csvReader.readLine();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			    
+			    
+			    
 			}
 			try {
 				csvReader.close();

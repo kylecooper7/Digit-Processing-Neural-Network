@@ -31,8 +31,10 @@ static boolean onJacksComputer = false;
 				// Network Settings
 			int numberOfLayers = 6;
 			int[] lengthOfLayers = {784, 150, 100, 64, 32, 10};
-			String dataFileName = "MyFirstNetwork";
-			
+			String dataFileName = "KylesNetwork";
+			if(onJacksComputer) {
+				dataFileName = "JacksNetwork";
+			}
 			
 				// Creation of Network
 			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);

@@ -1,4 +1,4 @@
-CHDIR "C:\Users\JackPaul\git\Digit-Processing-Neural-Network-1"
-GIT add "Nueral Network\MyFirstNetwork"
-GIT commit -m "Windows Auto Commit"
+CHDIR "C:\Users\JackPaul\git\DigitNetwork"
+GIT add "Nueral Network\JacksNetwork"
+GIT commit -m "Jacks AutoCommit"
 GIT push

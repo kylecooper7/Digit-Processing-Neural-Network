@@ -17,6 +17,7 @@ protected int[] lengthData;
 protected File theFile;
 protected Nueron[][] theNetworkArray;
 static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
+static double sigmoidModifier = 1.0; 
 //static String fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\";  
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
@@ -89,7 +90,7 @@ public int[] randomizeWeights(int lengthOfLayer) {
 int[] weights = new int[lengthOfLayer];
 for(int i = 0; i < lengthOfLayer; i++) {
 	// implement this
-	weights[i] = MyMethods.randomInt(-10, 10);
+	weights[i] = MyMethods.randomInt(-100, 100);
 }
 		return weights;
 	}
@@ -241,7 +242,7 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 	}
 	public void setInputValues(int[] data) {
 		for(int i = 0; i < theNetworkArray[0].length; i++) {
-			this.theNetworkArray[0][i].setValue(MyMethods.sigmoid(data[i]));
+			this.theNetworkArray[0][i].setValue(MyMethods.modifiedSigmoid(data[i], sigmoidModifier));
 		}
 	}
 	public double[] runTheNetwork(int[] inputData) {
@@ -260,7 +261,7 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 					sumCount += toBeAdded;
 				}
 				
-				double theValue = MyMethods.sigmoid(sumCount);
+				double theValue = MyMethods.modifiedSigmoid(sumCount, sigmoidModifier);
 			
 				((ReceptorNueron)theNetworkArray[layer][nueron]).setValue(theValue);
 //				System.out.print( ((ReceptorNueron)theNetworkArray[layer][nueron]).getValue()+ ", ");

@@ -89,6 +89,14 @@ static boolean onJacksComputer = false;
 			return (1/(1 + Math.pow(Math.E, -d)));
 		}
 		
+		public static void commitToGit() {
+			if(onJacksComputer) {
+				
+			}else {
+				MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
+			}
+		}
+		
 		public static double[] sigmoidLayer(Double[][] weights, Double[] previousLayerValues, Double[] biasses) {
 			double[] results = new double[biasses.length];
 			for(int i = 0; i < weights.length; i++) {

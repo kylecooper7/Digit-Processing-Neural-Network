@@ -88,9 +88,9 @@ public int[] randomizeWeights(int lengthOfLayer) {
 int[] weights = new int[lengthOfLayer];
 for(int i = 0; i < lengthOfLayer; i++) {
 	// implement this
-	weights[i] = MyMethods.randomInt(1, 1000);
+	weights[i] = MyMethods.randomInt(-10, 10);
 }
-		return null;
+		return weights;
 	}
 
 
@@ -170,8 +170,8 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 			for(int nueron = 0; nueron < theNetworkArray2[layer].length; nueron++) {
 				toTheFile[counter] = ((ReceptorNueron)theNetworkArray2[layer][nueron]).getBias();
 				counter++;
-				for(int i = 0; i < ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeight().length; i++) {
-					toTheFile[counter] = ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeight()[i];
+				for(int i = 0; i < ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeights().length; i++) {
+					toTheFile[counter] = ((ReceptorNueron)theNetworkArray2[layer][nueron]).getWeights()[i];
 					counter++;
 				}
 				
@@ -214,7 +214,7 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 		inputStream.read(bytesRead,  0,  lengthOfDataFile * 4);
         inputStream.close();
         int[] intsRead = byteArrayToIntArray(bytesRead);
-        int counter = 0;
+        int counter = numberOfLayers + 1;
     	for(int layer = 1; layer < theNetworkArray2.length; layer++) {
 			for(int nueron = 0; nueron < theNetworkArray2[layer].length; nueron++) {
 				int bias = intsRead[counter];
@@ -238,6 +238,43 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 		updateDataFile(theNetworkArray);
 		
 	}
+	public void setInputValues(int[] data) {
+		for(int i = 0; i < theNetworkArray[0].length; i++) {
+			this.theNetworkArray[0][i].setValue(MyMethods.sigmoid(data[i]));
+		}
+	}
+	public double[] runTheNetwork(int[] inputData) {
+		
+		if(inputData.length != lengthOfLayers[0]) {
+			System.out.println("Your inputData Array is not the right size.");
+			return null;
+		}
+		setInputValues(inputData);
+		for(int layer = 1; layer < theNetworkArray.length; layer++) {
+			for(int nueron = 0; nueron < theNetworkArray[layer].length; nueron++) {
+				double sumCount = ((ReceptorNueron)theNetworkArray[layer][nueron]).getBias();
+				for(int i = 0; i < lengthOfLayers[layer - 1]; i++) {
+					double toBeAdded = theNetworkArray[layer - 1][i].getValue() * ((ReceptorNueron)theNetworkArray[layer][nueron]).getWeights()[i];
+					
+					sumCount += toBeAdded;
+				}
+				
+				double theValue = MyMethods.sigmoid(sumCount);
+			
+				((ReceptorNueron)theNetworkArray[layer][nueron]).setValue(theValue);
+//				System.out.print( ((ReceptorNueron)theNetworkArray[layer][nueron]).getValue()+ ", ");
+			}
+		}
+		double[] toBeReturned = new double[lengthOfLayers[numberOfLayers - 1]];
+		for(int i = 0; i < toBeReturned.length; i++) {
+			toBeReturned[i] = theNetworkArray[numberOfLayers -1][i].getValue();
+		}
+		
+		
+		return toBeReturned;
+		
+	}
+	
 	
 	
 }

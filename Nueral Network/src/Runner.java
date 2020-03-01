@@ -20,7 +20,7 @@ public class Runner
 	{
 
 
-		public static void main(String[] args)
+		public static void main(String[] args) throws IOException
 			{
 
 //			MySQLAccess dao = new MySQLAccess();
@@ -35,23 +35,32 @@ public class Runner
 //String logout = "\\q";
 //runCommand(logout);
 //			
-      int[] test = {2, 45, 678, 900};
-      int[] test2 = Network.byteArrayToIntArray(Network.intArrayToByteArray(test));	  	
-for(Integer i: test) {
-System.out.print(i + " ");	
-}
-for(Integer i: test2) {
-System.out.print(i + " ");	
-}
+
 			
 
 			
 //			Img thepic = new Img("a6.png", 1);
 //			printJFrame(thepic, 10);
-//			for(ImageArray i: getTrainingData(5)) {
-//				printJFrame(i.getTwoDArray(), 7);
-//				System.out.println(i.getTheLabel());
-//			}
+			int numberOfLayers = 4;
+			int[] lengthOfLayers = {784, 64, 32, 10};
+			String dataFileName = "MyFirstNetwork";
+//			System.out.println(MyMethods.sigmoid(650));
+			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
+//			System.out.println(((ReceptorNueron)myFirstNetwork.getTheNetworkArray()[1][0]).getBias());
+			for(ImageArray i: getTrainingData(5)) {
+				printJFrame(i.getTwoDArray(), 7);
+				System.out.println(i.getTheLabel() + ":");
+				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
+				for(Double d: theOutput) {
+				System.out.print(d + ", ");	
+				}
+				System.out.println();
+//				for(int d: i.getOneDArray()) {
+//					System.out.print(d + ", ");	
+//					}
+				System.out.println();
+				
+			}
 //			
 //OutputNeuron theOutput = new OutputNeuron();
 //		
@@ -132,6 +141,13 @@ System.out.print(i + " ");
 			
 			while (row != null && counter1< unloadCap) {
 			    String[] data = row.split(",");
+			    int[] intArray = new int[data.length -1];
+			    //
+			    //System.out.println(data.length -1);
+			    //
+			    for(int w = 0; w < intArray.length; w++) {
+			    	intArray[w] = Integer.parseInt(data[w+1]);
+			    }
 			    // do something with the data
 			    int counter = 0;
 			    int dimension = (int) Math.pow(data.length - 1, .5);
@@ -142,7 +158,7 @@ System.out.print(i + " ");
 				    	pixels[i][j] = Integer.parseInt(data[counter]);
 				    }
 			    }
-			    theFiles.add(new ImageArray(pixels, Integer.parseInt(data[0])));
+			    theFiles.add(new ImageArray(pixels, intArray, Integer.parseInt(data[0])));
 			    
 			    counter1++;
 			    try {
@@ -161,44 +177,9 @@ System.out.print(i + " ");
 			return theFiles;
 		}
 		
-		public static void runCommand(String command) {
-			String[] bargs = new String[] {"/bin/bash", "-c", command, "with", "args"};
-			try {
-				Process proc = new ProcessBuilder(bargs).start();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		public static void runCommand(String[] commands) {
-			for(String c: commands) {
-			String[] bargs = new String[] {"/bin/bash", "-c", c, "with", "args"};
-			try {
-				Process proc = new ProcessBuilder(bargs).start();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-		}
-		public static void createTables() {
-			String[] commands = {
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								"",
-								};
-		}
+		
+		
+	
 //		public static ArrayList<ImageArray> unloadDigitFiles (int unloadCap) {
 //			FileInputStream inImage = null;
 //			FileInputStream inLabel = null;

@@ -18,7 +18,7 @@ public class ReceptorNueron extends Nueron
 	{
 		return bias;
 	}
-	public int[] getWeight()
+	public int[] getWeights()
 	{
 		return weights;
 	}
@@ -32,8 +32,9 @@ public class ReceptorNueron extends Nueron
 	{
 		this.weights = weights;
 	}
-	public void setValue(double value)
+	public void setValue(double valoo)
 	{
 		//calculateVallue
+		this.value = valoo;
 	}
 }

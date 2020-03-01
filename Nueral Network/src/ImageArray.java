@@ -2,10 +2,12 @@
 public class ImageArray {
 protected int[][] twoDArray;
 protected int theLabel;
-public ImageArray(int[][] pixelArray, int label){
+protected int[] oneDArray;
+public ImageArray(int[][] pixelArray, int[] onedArray, int label){
 	
 theLabel = label;
 twoDArray = pixelArray;
+oneDArray = onedArray;
 }
 public int[][] getTwoDArray() {
 	return twoDArray;
@@ -18,5 +20,11 @@ public int getTheLabel() {
 }
 public void setTheLabel(int theLabel) {
 	this.theLabel = theLabel;
+}
+public int[] getOneDArray() {
+	return oneDArray;
+}
+public void setOneDArray(int[] oneDArray) {
+	this.oneDArray = oneDArray;
 }
 }

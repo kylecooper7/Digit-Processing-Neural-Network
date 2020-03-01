@@ -19,7 +19,7 @@ import javax.swing.*;
 import useful_methods.MyMethods;
 public class Runner
 	{
-static boolean onJacksComputer = true;
+static boolean onJacksComputer = false;
 
 		public static void main(String[] args) throws IOException
 			{
@@ -29,8 +29,8 @@ static boolean onJacksComputer = true;
 						}
 					
 				// Network Settings
-			int numberOfLayers = 4;
-			int[] lengthOfLayers = {784, 64, 32, 10};
+			int numberOfLayers = 6;
+			int[] lengthOfLayers = {784, 150, 100, 64, 32, 10};
 			String dataFileName = "MyFirstNetwork";
 			
 			

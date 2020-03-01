@@ -239,6 +239,7 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 	}
 	public void setTheNetworkArray(Nueron[][] theNetworkArray) throws IOException {
 		updateDataFile(theNetworkArray);
+		this.theNetworkArray = getTheNetworkArray();
 		
 	}
 	public void setInputValues(int[] data) {

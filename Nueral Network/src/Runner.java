@@ -18,11 +18,53 @@ import javax.swing.*;
 import useful_methods.MyMethods;
 public class Runner
 	{
-
+static boolean onJacksComputer = false;
 
 		public static void main(String[] args) throws IOException
 			{
+						//ignore
+						if(onJacksComputer) {
+							Network.fileLocation = "C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\";
+						}
+					
+				// Network Settings
+			int numberOfLayers = 4;
+			int[] lengthOfLayers = {784, 64, 32, 10};
+			String dataFileName = "MyFirstNetwork";
+			
+			
+				// Creation of Network
+			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
 
+			
+				// The Actual Stuff
+			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 5)) {
+				
+				printJFrame(i.getTwoDArray(), 7);
+				System.out.println(i.getTheLabel() + ":");
+				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
+				for(Double d: theOutput) {
+				System.out.print(d + ", ");	
+				}
+				System.out.println();
+				System.out.println();
+				
+			}
+			
+			
+			
+			
+			
+			
+//			Img thepic = new Img("a6.png", 1);
+//			printJFrame(thepic, 10);
+//			
+//OutputNeuron theOutput = new OutputNeuron();
+//		
+//			theOutput.setValue(2.4);
+//System.out.println(theOutput.getValue());
+//theOutput.setTheValue();
+//System.out.println(theOutput.getValue());
 //			MySQLAccess dao = new MySQLAccess();
 //	        try {
 //				dao.readDataBase("vogella_blog");
@@ -34,41 +76,7 @@ public class Runner
 //String[] commands = {"cd /usr/local/mysql/bin/;ls", "./mysql -u root password \'KCkicks07\'"};
 //String logout = "\\q";
 //runCommand(logout);
-//			
-
-			
-
-			
-//			Img thepic = new Img("a6.png", 1);
-//			printJFrame(thepic, 10);
-			int numberOfLayers = 4;
-			int[] lengthOfLayers = {784, 64, 32, 10};
-			String dataFileName = "MyFirstNetwork";
-//			System.out.println(MyMethods.sigmoid(650));
-			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
-//			System.out.println(((ReceptorNueron)myFirstNetwork.getTheNetworkArray()[1][0]).getBias());
-			for(ImageArray i: getTrainingData(5)) {
-				printJFrame(i.getTwoDArray(), 7);
-				System.out.println(i.getTheLabel() + ":");
-				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
-				for(Double d: theOutput) {
-				System.out.print(d + ", ");	
-				}
-				System.out.println();
-//				for(int d: i.getOneDArray()) {
-//					System.out.print(d + ", ");	
-//					}
-				System.out.println();
-				
-			}
-//			
-//OutputNeuron theOutput = new OutputNeuron();
-//		
-//			theOutput.setValue(2.4);
-//System.out.println(theOutput.getValue());
-//theOutput.setTheValue();
-//System.out.println(theOutput.getValue());
-
+//	
 			
 	
 
@@ -80,6 +88,16 @@ public class Runner
 		public static double sigmoid(int d) {
 			return (1/(1 + Math.pow(Math.E, -d)));
 		}
+		
+		public static void commitToGit() throws IOException {
+			if(onJacksComputer) {
+				Runtime run = Runtime.getRuntime(); 
+		        run.exec("C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\NetworkCommit.bat");
+			}else {
+				MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
+			}
+		}
+		
 		
 		public static double[] sigmoidLayer(Double[][] weights, Double[] previousLayerValues, Double[] biasses) {
 			double[] results = new double[biasses.length];
@@ -119,7 +137,7 @@ public class Runner
 			
 		}
 		
-		public static ArrayList<ImageArray> getTrainingData(int unloadCap){
+		public static ArrayList<ImageArray> getTrainingData(int start, int unloadCap){
 			ArrayList<ImageArray> theFiles= new ArrayList<ImageArray>();
 			BufferedReader csvReader = null;
 			int counter1 = 0;
@@ -139,7 +157,8 @@ public class Runner
 				e.printStackTrace();
 			}
 			
-			while (row != null && counter1< unloadCap) {
+			while (row != null && counter1< unloadCap + start) {
+				if(counter1 >= start) {
 			    String[] data = row.split(",");
 			    int[] intArray = new int[data.length -1];
 			    //
@@ -160,13 +179,18 @@ public class Runner
 			    }
 			    theFiles.add(new ImageArray(pixels, intArray, Integer.parseInt(data[0])));
 			    
-			    counter1++;
+				}
+				counter1++;
+			    
 			    try {
 					row = csvReader.readLine();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			    
+			    
+			    
 			}
 			try {
 				csvReader.close();

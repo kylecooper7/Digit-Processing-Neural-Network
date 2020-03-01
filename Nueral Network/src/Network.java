@@ -16,7 +16,7 @@ protected int lengthOfDataFile;
 protected int[] lengthData;
 protected File theFile;
 protected Nueron[][] theNetworkArray;
-static String fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\";
+static String fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\"; 
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
 	numberOfLayers = number_Of_Layers;

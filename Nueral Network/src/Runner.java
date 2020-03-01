@@ -97,6 +97,7 @@ static boolean onJacksComputer = false;
 			}
 		}
 		
+		
 		public static double[] sigmoidLayer(Double[][] weights, Double[] previousLayerValues, Double[] biasses) {
 			double[] results = new double[biasses.length];
 			for(int i = 0; i < weights.length; i++) {

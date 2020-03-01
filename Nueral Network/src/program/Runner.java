@@ -1,3 +1,4 @@
+package program;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -18,7 +19,7 @@ import javax.swing.*;
 import useful_methods.MyMethods;
 public class Runner
 	{
-static boolean onJacksComputer = false;
+static boolean onJacksComputer = true;
 
 		public static void main(String[] args) throws IOException
 			{

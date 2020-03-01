@@ -39,6 +39,7 @@ static boolean onJacksComputer = false;
 			
 				// The Actual Stuff
 			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 5)) {
+				
 				printJFrame(i.getTwoDArray(), 7);
 				System.out.println(i.getTheLabel() + ":");
 				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());

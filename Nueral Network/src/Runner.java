@@ -18,11 +18,52 @@ import javax.swing.*;
 import useful_methods.MyMethods;
 public class Runner
 	{
-
+static boolean onJacksComputer = false;
 
 		public static void main(String[] args) throws IOException
 			{
+						//ignore
+						if(onJacksComputer) {
+							Network.fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\";
+						}
+					
+				// Network Settings
+			int numberOfLayers = 4;
+			int[] lengthOfLayers = {784, 64, 32, 10};
+			String dataFileName = "MyFirstNetwork";
+			
+			
+				// Creation of Network
+			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
 
+			
+				// The Actual Stuff
+			for(ImageArray i: getTrainingData(5)) {
+				printJFrame(i.getTwoDArray(), 7);
+				System.out.println(i.getTheLabel() + ":");
+				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
+				for(Double d: theOutput) {
+				System.out.print(d + ", ");	
+				}
+				System.out.println();
+				System.out.println();
+				
+			}
+			
+			
+			
+			
+			
+			
+//			Img thepic = new Img("a6.png", 1);
+//			printJFrame(thepic, 10);
+//			
+//OutputNeuron theOutput = new OutputNeuron();
+//		
+//			theOutput.setValue(2.4);
+//System.out.println(theOutput.getValue());
+//theOutput.setTheValue();
+//System.out.println(theOutput.getValue());
 //			MySQLAccess dao = new MySQLAccess();
 //	        try {
 //				dao.readDataBase("vogella_blog");
@@ -34,41 +75,7 @@ public class Runner
 //String[] commands = {"cd /usr/local/mysql/bin/;ls", "./mysql -u root password \'KCkicks07\'"};
 //String logout = "\\q";
 //runCommand(logout);
-//			
-
-			
-
-			
-//			Img thepic = new Img("a6.png", 1);
-//			printJFrame(thepic, 10);
-			int numberOfLayers = 4;
-			int[] lengthOfLayers = {784, 64, 32, 10};
-			String dataFileName = "MyFirstNetwork";
-//			System.out.println(MyMethods.sigmoid(650));
-			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
-//			System.out.println(((ReceptorNueron)myFirstNetwork.getTheNetworkArray()[1][0]).getBias());
-			for(ImageArray i: getTrainingData(5)) {
-				printJFrame(i.getTwoDArray(), 7);
-				System.out.println(i.getTheLabel() + ":");
-				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
-				for(Double d: theOutput) {
-				System.out.print(d + ", ");	
-				}
-				System.out.println();
-//				for(int d: i.getOneDArray()) {
-//					System.out.print(d + ", ");	
-//					}
-				System.out.println();
-				
-			}
-//			
-//OutputNeuron theOutput = new OutputNeuron();
-//		
-//			theOutput.setValue(2.4);
-//System.out.println(theOutput.getValue());
-//theOutput.setTheValue();
-//System.out.println(theOutput.getValue());
-
+//	
 			
 	
 

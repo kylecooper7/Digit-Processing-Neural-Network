@@ -24,7 +24,7 @@ static boolean onJacksComputer = false;
 			{
 						//ignore
 						if(onJacksComputer) {
-							Network.fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\";
+							Network.fileLocation = "C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\";
 						}
 					
 				// Network Settings
@@ -89,9 +89,10 @@ static boolean onJacksComputer = false;
 			return (1/(1 + Math.pow(Math.E, -d)));
 		}
 		
-		public static void commitToGit() {
+		public static void commitToGit() throws IOException {
 			if(onJacksComputer) {
-				
+				Runtime run = Runtime.getRuntime(); 
+		        run.exec("C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\NetworkCommit.bat");
 			}else {
 				MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
 			}

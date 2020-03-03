@@ -1,6 +1,7 @@
 package program;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import useful_methods.MyMethods;
@@ -8,30 +9,31 @@ import useful_methods.MyMethods;
 public class ItsLearning {
 	static int batchSize = 50;
 
-	public static void makeItLearn(Network net, int numOfBatches) {
+	public static void makeItLearn(Network net, int numOfBatches) throws IOException {
 		int leftOff = getLeftOffAt(); 
 		for(int batch = 0; batch < numOfBatches; batch++) {
-			
-			
+			double[][] bigListOutputs = new double[batchSize][];
+			double[][] bigListExpected = new double[batchSize][];
+			int counter = 0;
 			
 		for(ImageArray i: Runner.getTrainingData(batch * batchSize + leftOff, batchSize)) {
 			
-			System.out.println(i.getTheLabel() + ":");
-			double[] theOutput = net.runTheNetwork(i.getOneDArray());
-			for(Double d: theOutput) {
-			System.out.print(d + ", ");	
-			}
+			bigListOutputs[counter] = net.runTheNetwork(i.getOneDArray());
+			bigListExpected[counter] = expectedData(i.getTheLabel());
 			
-			
+			counter++;
 		}
 		
+		backpropogate(bigListExpected, bigListOutputs, net);
 		
 		}
+		Runner.commitToGit();
+		
 	}
 
-	public static Nueron[][] backpropogate(double[] expectedData, Network net){
-
+	public static Nueron[][] backpropogate(double[][] expectedData, double[][] actualData, Network net){
 		
+
 		
 		return null;
 	}

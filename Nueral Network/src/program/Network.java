@@ -18,7 +18,7 @@ protected int[] lengthData;
 protected File theFile;
 protected Nueron[][] theNetworkArray;
 static String fileLocation = "/Users/kyle/git/Digit-Processing/Nueral Network/";
-static double sigmoidModifier = 1.0; 
+static double sigmoidModifier = 100.0; 
 //static String fileLocation = "C:\\Users\\JackPaul\\git\\Digit-Processing-Neural-Network-1\\Nueral Network\\";  
 	public Network(int number_Of_Layers, int[] length_Of_Layers, String dataFileName) throws IOException {
 //     number of layers and length of layers includes input layer, length of layers goes input to output
@@ -66,7 +66,7 @@ static double sigmoidModifier = 1.0;
 		for(int i = 1; i < lengthOfLayers.length; i++) {
 		
 				for(int j = 0; j < lengthOfLayers[i]; j++) {
-					int bias = 1;
+					int bias = 0;
 					
 // implement initial randomization of weights and bias
 					

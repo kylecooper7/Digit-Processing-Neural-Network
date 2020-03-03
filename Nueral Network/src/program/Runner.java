@@ -27,7 +27,7 @@ static boolean onJacksComputer = false;
 						if(onJacksComputer) {
 							Network.fileLocation = "C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\";
 						}
-					
+
 				// Network Settings
 			int numberOfLayers = 6;
 			int[] lengthOfLayers = {784, 150, 100, 64, 32, 10};
@@ -38,10 +38,9 @@ static boolean onJacksComputer = false;
 			
 				// Creation of Network
 			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
-
 			
 				// The Actual Stuff
-			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 5)) {
+			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
 				
 				printJFrame(i.getTwoDArray(), 7);
 				System.out.println(i.getTheLabel() + ":");
@@ -55,7 +54,7 @@ static boolean onJacksComputer = false;
 			}
 			
 			
-			
+
 			
 			
 			
@@ -97,7 +96,7 @@ static boolean onJacksComputer = false;
 				Runtime run = Runtime.getRuntime(); 
 		        run.exec("C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\NetworkCommit.bat");
 			}else {
-				MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
+				MyMethods.runCommand("sh \"/Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh\"");
 			}
 		}
 		

@@ -1,6 +1,8 @@
 package program;
 
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -8,7 +10,7 @@ import useful_methods.MyMethods;
 
 public class ItsLearning {
 	static int batchSize = 50;
-
+	
 	public static void makeItLearn(Network net, int numOfBatches) throws IOException {
 		int leftOff = getLeftOffAt(); 
 		for(int batch = 0; batch < numOfBatches; batch++) {
@@ -43,9 +45,27 @@ public class ItsLearning {
 		return 0;
 		
 	}
-	public static void setLeftOffAt(int num) {
-
+	public static void setLeftOffAt(int num) throws IOException 
+	{
+		//var
+		String file = "";
+		FileWriter fileWriter;
+		BufferedWriter bufferedWriter;
 		
+		//setFile
+		if(Runner.onJacksComputer == true)
+		{
+			file = "JOLA.txt";
+		}
+		else
+		{
+			file = "KOLA.txt";
+		}
+		fileWriter = new FileWriter(file, true);
+		bufferedWriter = new BufferedWriter(fileWriter);
+		
+		//write
+		bufferedWriter.write(num);
 	}
 	public static double[] expectedData(int num) {
 		double[][] dd = {

@@ -1,8 +1,15 @@
 package program;
 
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -41,9 +48,41 @@ public class ItsLearning {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
 	public static int getLeftOffAt() {
-		return 0;
+		int lefty = 0;
+		String line = null;
 		
+		String fileName = "KLOA.txt";
+		if(Runner.onJacksComputer) {
+			fileName = "JLOA.txt";
+		}
+		try
+			{
+				FileReader fileReader = new FileReader(fileName);
+				BufferedReader bufferedReader = new BufferedReader(fileReader);
+				
+				while ((line = bufferedReader.readLine()) != null)
+					{
+						lefty = Integer.parseInt(line);
+						
+					}
+				bufferedReader.close();
+			} catch (FileNotFoundException ex)
+			{
+				System.out.println("Unable to open file '" + fileName + "'");
+			} catch (IOException ex)
+			{
+				System.out.println("Error reading file '" + fileName + "'");
+			}
+		
+	return lefty;
 	}
 	public static void setLeftOffAt(int num) throws IOException 
 	{

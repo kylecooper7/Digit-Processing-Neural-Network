@@ -12,6 +12,7 @@ import java.io.FileReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import useful_methods.MyMethods;
 
@@ -84,27 +85,30 @@ public class ItsLearning {
 		
 	return lefty;
 	}
-	public static void setLeftOffAt(int num) throws IOException 
+	
+	
+	
+	public static void setLeftOffAt(Integer numby) throws IOException 
 	{
 		//var
-		String file = "";
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter;
+		String fileName = "";
+
+		
 		
 		//setFile
 		if(Runner.onJacksComputer == true)
 		{
-			file = "JOLA.txt";
+			fileName = "JLOA.txt";
 		}
 		else
 		{
-			file = "KOLA.txt";
+			fileName = "KLOA.txt";
 		}
-		fileWriter = new FileWriter(file, true);
-		bufferedWriter = new BufferedWriter(fileWriter);
+		//FileWriter fileWriter = new FileWriter(fileName, true);
+		PrintWriter writer = new PrintWriter(fileName);
+        writer.print(numby.toString());
+        writer.close();
 		
-		//write
-		bufferedWriter.write(num);
 	}
 	public static double[] expectedData(int num) {
 		double[][] dd = {

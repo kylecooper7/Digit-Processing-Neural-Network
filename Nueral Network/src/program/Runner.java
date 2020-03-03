@@ -21,13 +21,9 @@ public class Runner
 	{
 static boolean onJacksComputer = true;
 
-		public static void main(String[] args) throws IOException
-		{
-			ItsLearning.setLeftOffAt(5);
-			ItsLearning.setLeftOffAt(6123);
-		}
 		
-		public static void realMain() throws IOException
+		
+		public static void main(String[] args) throws IOException
 			{
 						//ignore
 						if(onJacksComputer) {

@@ -19,9 +19,15 @@ import javax.swing.*;
 import useful_methods.MyMethods;
 public class Runner
 	{
-static boolean onJacksComputer = false;
+static boolean onJacksComputer = true;
 
 		public static void main(String[] args) throws IOException
+		{
+			ItsLearning.setLeftOffAt(5);
+			ItsLearning.setLeftOffAt(6123);
+		}
+		
+		public static void realMain() throws IOException
 			{
 						//ignore
 						if(onJacksComputer) {

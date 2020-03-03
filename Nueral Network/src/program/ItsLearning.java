@@ -13,13 +13,13 @@ public class ItsLearning {
 		int leftOff = getLeftOffAt(); 
 		for(int batch = 0; batch < numOfBatches; batch++) {
 			double[][] bigListOutputs = new double[batchSize][];
-			double[][] bigListExpected = new double[batchSize][];
+			double[] bigListExpected = new double[batchSize];
 			int counter = 0;
 			
 		for(ImageArray i: Runner.getTrainingData(batch * batchSize + leftOff, batchSize)) {
 			
 			bigListOutputs[counter] = net.runTheNetwork(i.getOneDArray());
-			bigListExpected[counter] = expectedData(i.getTheLabel());
+			bigListExpected[counter] = i.getTheLabel();
 			
 			counter++;
 		}
@@ -31,7 +31,7 @@ public class ItsLearning {
 		
 	}
 
-	public static Nueron[][] backpropogate(double[][] expectedData, double[][] actualData, Network net){
+	public static Nueron[][] backpropogate(double[] expectedData, double[][] actualData, Network net){
 		
 
 		

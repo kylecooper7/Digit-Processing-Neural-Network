@@ -43,18 +43,22 @@ static boolean onJacksComputer = false;
 			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
 			
 				// The Actual Stuff
-			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
-				
-				printJFrame(i.getTwoDArray(), 7);
-				System.out.println(i.getTheLabel() + ":");
-				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
-				for(Double d: theOutput) {
-				System.out.print(d + ", ");	
-				}
-				System.out.println();
-				System.out.println();
-				
-			}
+			
+			ItsLearning.makeItLearn(myFirstNetwork, 4);
+			
+			
+//			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
+//				
+//				printJFrame(i.getTwoDArray(), 7);
+//				System.out.println(i.getTheLabel() + ":");
+//				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
+//				for(Double d: theOutput) {
+//				System.out.print(d + ", ");	
+//				}
+//				System.out.println();
+//				System.out.println();
+//				
+//			}
 			
 			
 

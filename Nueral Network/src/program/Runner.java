@@ -23,8 +23,6 @@ public class Runner
 	{
 static boolean onJacksComputer = false;
 
-		
-		
 		public static void main(String[] args) throws IOException
 			{
 						//ignore

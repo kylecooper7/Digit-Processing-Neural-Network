@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class DataPanel 
 {
-	private String[][] DataPanel;
+	private static String[] inputs;
+	private static String[] DataPanel;
 	private int totalCycles;
 	private int totalRight; 
+	
 	public static void setScreenSize()
 	{
 		//variables
@@ -54,7 +56,27 @@ public class DataPanel
 	
 	public static void setDataPanel(Double batchCost, int numRight)
 	{
-		
+		DataPanel = new String[] {
+				" _______________________________________________________________ ",
+			    "|                                                               |",
+				"|  HDP Network Training                   Time: H-" + inputs[10] + " M-" + inputs[11] + " S-" + inputs[12] + "  |",
+				"|_______________________________________________________________|",
+				"|                                                               |",
+				"|  Cycles:                                               " + inputs[0] + "  |",
+				"|  Batch Size:                                             " + inputs[1] + "  |",
+				"|  Batch Cost:                                           " + inputs[2] + "  |",
+				"|                                                               |",
+				"|  Accuracy:                                           " + inputs[3] + "/" + inputs[4] + "  |",
+				"|                                                      " + inputs[5] + " %  |",
+				"|                                                               |",
+				"|  Average Accuracy:                               " + inputs[6] + "/" + inputs[7] + "  |",
+				"|                                                      " + inputs[8] + " %  |",
+				"|                                                               |",
+				"|                                                               |",
+				"|   |-------------------------------------------------------|   |",
+				"|                                                               |",
+				"|  Batches: 000/000                                    " + inputs[9] + " %  |",
+				"|_______________________________________________________________|"};
 	}
 	
 	public static void printDataPanel()
@@ -84,6 +106,7 @@ public class DataPanel
 	|_______________________________________________________________|
 	                                                                 */
 }
+
 
 
 

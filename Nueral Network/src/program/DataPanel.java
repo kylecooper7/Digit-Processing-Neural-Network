@@ -56,10 +56,11 @@ public class DataPanel
 	
 	public static void setDataPanel(Double batchCost, int numRight)
 	{
+		inputs = new String[] {"10321", "100", "09.56", "100", "229", "96.28", "12764", "89999", "56.03", "45.63", "2", "12", "16", "00122", "04000"};
 		DataPanel = new String[] {
 				" _______________________________________________________________ ",
 			    "|                                                               |",
-				"|  HDP Network Training                   Time: H-" + inputs[10] + " M-" + inputs[11] + " S-" + inputs[12] + "  |",
+				"|  HDP Network Training                    Time: H-" + inputs[10] + " M-" + inputs[11] + " S-" + inputs[12] + "  |",
 				"|_______________________________________________________________|",
 				"|                                                               |",
 				"|  Cycles:                                               " + inputs[0] + "  |",
@@ -75,13 +76,17 @@ public class DataPanel
 				"|                                                               |",
 				"|   |-------------------------------------------------------|   |",
 				"|                                                               |",
-				"|  Batches: 000/000                                    " + inputs[9] + " %  |",
+				"|  Batches: " + inputs[13] + "/" + inputs[14] + "                                " + inputs[9] + " %  |",
 				"|_______________________________________________________________|"};
 	}
 	
 	public static void printDataPanel()
 	{
-		
+		System.out.println();
+		for(int i = 0; i < DataPanel.length - 1; i++) {
+		System.out.println(DataPanel[i]);
+		}
+		System.out.print(DataPanel[DataPanel.length - 1]);
 	}
 	
   /* _______________________________________________________________
@@ -102,7 +107,7 @@ public class DataPanel
 	|                                                               |
 	|   |-------------------------------------------------------|   |
 	|                                                               |
-	|  Batches: 000/000                                    00000 %  |
+	|  Batches: 00000/00000                                00000 %  |
 	|_______________________________________________________________|
 	                                                                 */
 }

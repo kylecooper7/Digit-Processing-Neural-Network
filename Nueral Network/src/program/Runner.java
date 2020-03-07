@@ -303,4 +303,3 @@ static boolean onJacksComputer = false;
 //			}
 
 }
-

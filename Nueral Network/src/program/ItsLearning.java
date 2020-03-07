@@ -1,4 +1,6 @@
 package program;
+
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -36,24 +38,15 @@ public class ItsLearning {
 		
 		}
 		Runner.commitToGit();
-		setLeftOffAt(leftOff + numOfBatches * batchSize);
 		
 	}
 
-	public static void backpropogate(double[] expectedData, double[][] actualData, Network net){
+	public static Nueron[][] backpropogate(double[] expectedData, double[][] actualData, Network net){
 		
 
 		
-		
+		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static int getLeftOffAt() {
 		int lefty = 0;

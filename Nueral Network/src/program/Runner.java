@@ -21,7 +21,7 @@ import useful_methods.MyMethods;
 
 public class Runner
 	{
-static boolean onJacksComputer = false;
+static boolean onJacksComputer = true;
 
 		
 		

@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class DataPanel 
 {
 	private String[][] DataPanel;
-	
+	private int totalCycles;
+	private int totalRight; 
 	public static void setScreenSize()
 	{
 		//variables
@@ -51,7 +52,7 @@ public class DataPanel
 		enterToContinue = blankInput.nextLine();
 	}
 	
-	public static void setDataPanel()
+	public static void setDataPanel(Double batchCost, int numRight)
 	{
 		
 	}

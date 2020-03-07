@@ -18,9 +18,13 @@ import useful_methods.MyMethods;
 
 public class ItsLearning {
 	static int batchSize = 50;
+	static int numberOfBatches;
+	static int lOA = 0;
 	
 	public static void makeItLearn(Network net, int numOfBatches) throws IOException {
 		int leftOff = getLeftOffAt(); 
+		lOA = leftOff;
+		numberOfBatches = numOfBatches;
 		for(int batch = 0; batch < numOfBatches; batch++) {
 			double[][] bigListOutputs = new double[batchSize][];
 			double[] bigListExpected = new double[batchSize];

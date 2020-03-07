@@ -13,45 +13,60 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import useful_methods.MyMethods;
 
-public class Runner {
-	static boolean onJacksComputer = false;
 
-	public static void main(String[] args) throws IOException {
-		// ignore
-		if (onJacksComputer) {
-			Network.fileLocation = "C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\";
-		}
 
-		// Network Settings
-		int numberOfLayers = 6;
-		int[] lengthOfLayers = { 784, 150, 100, 64, 32, 10 };
-		String dataFileName = "KylesNetwork";
-		if (onJacksComputer) {
-			dataFileName = "JacksNetwork";
-		}
+public class Runner
+	{
+static boolean onJacksComputer = false;
 
-		// Creation of Network
-		Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
+		
+		
+		public static void main(String[] args) throws IOException
+			{
+						//ignore
+						if(onJacksComputer) {
+							Network.fileLocation = "C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\";
+						}
 
-		// The Actual Stuff
-		for (ImageArray i : getTrainingData(MyMethods.randomInt(1, 1000), 5)) {
-
-			printJFrame(i.getTwoDArray(), 7);
-			System.out.println(i.getTheLabel() + ":");
-			double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
-			for (Double d : theOutput) {
-				System.out.print(d + ", ");
+				// Network Settings
+			int numberOfLayers = 4;
+			int[] lengthOfLayers = {784, 64, 32, 10};
+			
+			String dataFileName = "KylesNetwork";
+			if(onJacksComputer) {
+				dataFileName = "JacksNetwork";
 			}
-			System.out.println();
-			System.out.println();
+			
+				// Creation of Network
+			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
+			
+				// The Actual Stuff
+			
+			ItsLearning.makeItLearn(myFirstNetwork, 4);
+			
+			
+//			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
+//				
+//				printJFrame(i.getTwoDArray(), 7);
+//				System.out.println(i.getTheLabel() + ":");
+//				double[] theOutput = myFirstNetwork.runTheNetwork(i.getOneDArray());
+//				for(Double d: theOutput) {
+//				System.out.print(d + ", ");	
+//				}
+//				System.out.println();
+//				System.out.println();
+//				
+//			}
+			
+			
 
-		}
+			
+			
+			
 
 //			Img thepic = new Img("a6.png", 1);
 //			printJFrame(thepic, 10);
@@ -75,6 +90,7 @@ public class Runner {
 //runCommand(logout);
 //	
 
+
 	}
 
 	public static double sigmoid(Double d) {
@@ -91,6 +107,7 @@ public class Runner {
 			run.exec("C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\NetworkCommit.bat");
 		} else {
 			MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
+
 		}
 	}
 

@@ -11,8 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import useful_methods.MyMethods;
@@ -21,7 +25,9 @@ import useful_methods.MyMethods;
 
 public class Runner
 	{
-static boolean onJacksComputer = true;
+	
+static boolean onJacksComputer = false;
+static boolean setScreenSize = false;
 
 		public static void main(String[] args) throws IOException
 			{
@@ -38,13 +44,21 @@ static boolean onJacksComputer = true;
 			if(onJacksComputer) {
 				dataFileName = "JacksNetwork";
 			}
+			if(setScreenSize) {
+			DataPanel.setScreenSize();
+			}
+			else {
+				System.out.println();
+				System.out.println(DataPanel.spaceBuffer + "                           LOADING...");
+				System.out.println();
+			}
 			
 				// Creation of Network
 			Network myFirstNetwork = new Network(numberOfLayers, lengthOfLayers, dataFileName);
 			
 				// The Actual Stuff
 			
-			ItsLearning.makeItLearn(myFirstNetwork, 4);
+			ItsLearning.makeItLearn(myFirstNetwork, 1200);
 			
 			
 //			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
@@ -145,6 +159,68 @@ static boolean onJacksComputer = true;
 
 	}
 
+//// more efficient Reader, maybe:
+//	public static ArrayList<ImageArray> getTrainingData(int start, int unloadCap) {
+//		ArrayList<ImageArray> theFiles = new ArrayList<ImageArray>();
+//		
+//		
+//		
+//
+//		String row = null;
+//		
+//		try (Stream<String> all_lines = Files.lines(Paths.get("bin/resources/mnist_train.csv"))) {
+//			
+//			for(int k = start; k < unloadCap - start ; k++) {
+//			row = all_lines.skip(k).findFirst().get();
+//		if(row.equals("  ")) {
+//			System.out.println("kljs");
+//		}
+//		else {
+//			System.out.println("jsbjw");
+//		}
+//
+//		
+//			
+//				String[] data = row.split(",");
+//				int[] intArray = new int[data.length - 1];
+//				//
+//				// System.out.println(data.length -1);
+//				//
+//				for (int w = 0; w < intArray.length; w++) {
+//					intArray[w] = Integer.parseInt(data[w + 1]);
+//				}
+//				// do something with the data
+//				int counter = 0;
+//				int dimension = (int) Math.pow(data.length - 1, .5);
+//				int[][] pixels = new int[dimension][dimension];
+//				for (int i = 0; i < pixels.length; i++) {
+//					for (int j = 0; j < pixels[i].length; j++) {
+//						counter++;
+//						pixels[i][j] = Integer.parseInt(data[counter]);
+//					}
+//				}
+//				theFiles.add(new ImageArray(pixels, intArray, Integer.parseInt(data[0])));
+//				
+//			}
+//				
+//		} catch (IOException e) {
+//			
+//			e.printStackTrace();
+//		}
+//			
+//
+//			
+//
+//		
+//	
+//		return theFiles;
+//	}
+	
+	
+	
+	
+	
+	
 	public static ArrayList<ImageArray> getTrainingData(int start, int unloadCap) {
 		ArrayList<ImageArray> theFiles = new ArrayList<ImageArray>();
 		BufferedReader csvReader = null;
@@ -207,6 +283,8 @@ static boolean onJacksComputer = true;
 		return theFiles;
 	}
 
+	
+	
 //		public static ArrayList<ImageArray> unloadDigitFiles (int unloadCap) {
 //			FileInputStream inImage = null;
 //			FileInputStream inLabel = null;

@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import useful_methods.MyMethods;
 
@@ -25,15 +26,22 @@ public class ItsLearning {
 		int leftOff = getLeftOffAt(); 
 		lOA = leftOff;
 		numberOfBatches = numOfBatches;
+		ArrayList<ImageArray> allTheData = Runner.getTrainingData( leftOff, batchSize * numOfBatches);
+		if(allTheData.size() < numOfBatches * batchSize) {
+			leftOff = 0;
+			lOA = leftOff;
+			setLeftOffAt(0);
+			allTheData = Runner.getTrainingData( leftOff, batchSize * numOfBatches);
+		}
 		for(int batch = 0; batch < numOfBatches; batch++) {
 			double[][] bigListOutputs = new double[batchSize][];
-			double[] bigListExpected = new double[batchSize];
+			int[] bigListExpected = new int[batchSize];
 			int counter = 0;
 			
-		for(ImageArray i: Runner.getTrainingData(batch * batchSize + leftOff, batchSize)) {
+		for(int g = 0; g < batchSize; g++) {
 			
-			bigListOutputs[counter] = net.runTheNetwork(i.getOneDArray());
-			bigListExpected[counter] = i.getTheLabel();
+			bigListOutputs[counter] = net.runTheNetwork(allTheData.get(batch * batchSize + g).getOneDArray());
+			bigListExpected[counter] = allTheData.get(batch * batchSize + g).getTheLabel();
 			
 			counter++;
 		}
@@ -41,15 +49,41 @@ public class ItsLearning {
 		backpropogate(bigListExpected, bigListOutputs, net);
 		
 		}
+		setLeftOffAt(leftOff + numOfBatches * batchSize);
 		Runner.commitToGit();
 		
 	}
 
-	public static Nueron[][] backpropogate(double[] expectedData, double[][] actualData, Network net){
+	public static void backpropogate(int[] expectedData, double[][] actualData, Network net){
+		// stuff for the DataPanel
+		double theSum = 0;
+		int numRight = 0;
 		
+		for(int i = 0; i < actualData.length; i++) {
+			double max = 0;
+			int maxIndex = -1;
+			double[] expectations = expectedData(expectedData[i]);
+			for(int j = 0; j < actualData[i].length; j++) {
+				if(actualData[i][j] > max) {
+					max = actualData[i][j];
+					maxIndex = j;
+				}
+				theSum += Math.pow(expectations[j] - actualData[i][j], 2);
+			}
+			if(maxIndex == expectedData[i]) {
+				numRight++;
+			}
+		}
+		double batchCost = theSum / batchSize;
+		DataPanel.setDataPanel(batchCost, numRight);
+		
+		
+		// ^^^^^^^^^^^^^^^^^^^^^
 
 		
-		return null;
+		
+		
+		
 	}
 	
 	public static int getLeftOffAt() {

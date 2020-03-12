@@ -16,6 +16,7 @@ public class DataPanel
 	private static int onBatch = 0;
 	
 	private static int updateTimeEveryNBatches = 1;
+	private static boolean totalDataMode = false;
 	
 	public static void setScreenSize()
 	{
@@ -82,9 +83,13 @@ public class DataPanel
 		totalCycles += ItsLearning.batchSize;
 		}
 		// adjust + ItsLaerning.lOA if you want place in database or just since run
-		int numOfCycles = totalCycles + ItsLearning.lOA;
-//		int numOfCycles = totalCycles + ItsLearning.lOA;
-		
+		int numOfCycles = 0;
+		if(totalDataMode) {
+		numOfCycles = totalCycles + ItsLearning.lOA;
+		}
+		else {
+		numOfCycles = totalCycles;
+		}
 		inputs[0] = format(numOfCycles, 5);
 		inputs[1] = format(ItsLearning.batchSize, 3);
 		inputs[2] = format(batchCost, 5);

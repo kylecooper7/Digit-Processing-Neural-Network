@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import useful_methods.MyMethods;
 
 public class ItsLearning {
-	static int batchSize = 50;
+	static int batchSize = 20;
 	static int numberOfBatches;
 	static int lOA = 0;
 	
@@ -54,7 +54,7 @@ public class ItsLearning {
 		
 	}
 
-	public static void backpropogate(int[] expectedData, double[][] actualData, Network net){
+	public static void backpropogate(int[] expectedData, double[][] actualData, Network net) throws IOException{
 		// stuff for the DataPanel
 		double theSum = 0;
 		int numRight = 0;
@@ -74,12 +74,22 @@ public class ItsLearning {
 				numRight++;
 			}
 		}
-		double batchCost = theSum / batchSize;
+		double batchCost = theSum / (2 * batchSize);
 		DataPanel.setDataPanel(batchCost, numRight);
 		
 		
-		// ^^^^^^^^^^^^^^^^^^^^^
-
+		// stuff for the DataPanel^^^^^^^^^^^^^^^^^^^^^
+		Nueron[][] theNetworkArray = net.getTheNetworkArray();
+		for(int layer = 1; layer < theNetworkArray.length; layer++) {
+			for(int nueron = 0; nueron < theNetworkArray[layer].length; nueron++) {
+				((ReceptorNueron)theNetworkArray[layer][nueron]).setWeights(net.randomizeWeights(theNetworkArray[layer - 1].length));
+			
+			}
+		}
+		net.setTheNetworkArray(theNetworkArray);
+		
+		
+		
 		
 		
 		
@@ -155,6 +165,13 @@ public class ItsLearning {
 						};
 		return dd[num];
 	}
-	
+
+	public static double modifiedSigmoidDerivative(Double d, Double modifier) {
+		double sig = MyMethods.modifiedSigmoid(d, modifier);
+		double diggidy = sig * (1.0 - sig);
+		
+		return (Double) (diggidy/modifier);
+		
+	}
 	
 }

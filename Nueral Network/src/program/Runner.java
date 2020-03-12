@@ -58,7 +58,7 @@ static boolean setScreenSize = false;
 			
 				// The Actual Stuff
 			
-			ItsLearning.makeItLearn(myFirstNetwork, 1200);
+			ItsLearning.makeItLearn(myFirstNetwork, 250);
 			
 			
 //			for(ImageArray i: getTrainingData(MyMethods.randomInt(1, 1000), 30)) {
@@ -118,7 +118,7 @@ static boolean setScreenSize = false;
 			Runtime run = Runtime.getRuntime();
 			run.exec("C:\\Users\\JackPaul\\git\\DigitNetwork\\Nueral Network\\NetworkCommit.bat");
 		} else {
-			MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral Network/commitNetwork.sh");
+			MyMethods.runCommand("sh /Users/kyle/git/Digit-Processing/Nueral\\ Network/commitNetwork.sh");
 
 		}
 	}

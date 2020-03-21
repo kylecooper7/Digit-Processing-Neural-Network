@@ -79,13 +79,65 @@ public class ItsLearning {
 		
 		
 		// stuff for the DataPanel^^^^^^^^^^^^^^^^^^^^^
+		
+		
 		Nueron[][] theNetworkArray = net.getTheNetworkArray();
-		for(int layer = 1; layer < theNetworkArray.length; layer++) {
+		
+		
+		
+		for(int n = 0; n < theNetworkArray[theNetworkArray.length - 1].length; n++) {
+			Double theSummy = 0.0;
+			Double summy2 = 0.0;
+			for(int b = 0; b < batchSize; b++) {
+				summy2 += MyMethods.inverseModifiedSigmoid(actualData[b][n], Network.sigmoidModifier);
+				theSummy += actualData[b][n] - expectedData(expectedData[b])[n];
+			}
+			Double avgZValue = summy2 / batchSize;
+			Double activationError = theSummy/batchSize;
+			// this could cause some problems
+			((ReceptorNueron) theNetworkArray[theNetworkArray.length - 1][n]).getBpi().setError(activationError * MyMethods.modifiedSigmoidDerivative(avgZValue, Network.sigmoidModifier));
+		}
+		
+		
+		
+		
+		for(int layer = theNetworkArray.length - 2; layer > 0; layer--) {
 			for(int nueron = 0; nueron < theNetworkArray[layer].length; nueron++) {
-				((ReceptorNueron)theNetworkArray[layer][nueron]).setWeights(net.randomizeWeights(theNetworkArray[layer - 1].length));
-			
+				Double zAv = 0.0;
+				for(int b = 0; b < batchSize; b++) {
+					zAv += MyMethods.inverseModifiedSigmoid(theNetworkArray[layer][nueron].getValue(), Network.sigmoidModifier);
+					
+				}
+				zAv /= batchSize;
+				
+				Double sumError = 0.0;
+				for(int n = 0; n < theNetworkArray[layer + 1].length; n++) {
+					sumError += ((ReceptorNueron)theNetworkArray[layer + 1][n]).getWeights()[nueron] * ((ReceptorNueron)theNetworkArray[layer + 1][n]).getBpi().getError();
+				}
+				((ReceptorNueron)theNetworkArray[layer][nueron]).getBpi().setError(sumError * MyMethods.inverseModifiedSigmoid(zAv, Network.sigmoidModifier));
+				
+				
 			}
 		}
+		
+		for(int layer = 1; layer < theNetworkArray.length; layer++) {
+			for(int nueron = 0; nueron < theNetworkArray[layer].length; nueron++) {
+				((ReceptorNueron)theNetworkArray[layer][nueron]).getBpi().setBiasError(((ReceptorNueron)theNetworkArray[layer][nueron]).getBpi().getError());
+				 
+				 Double[] weightErrors = new Double[theNetworkArray[layer - 1].length];
+				 for(int n = 0; n < weightErrors.length; n++) {
+					 weightErrors[n] = ((ReceptorNueron)theNetworkArray[layer][nueron]).getBpi().getError() * theNetworkArray[layer - 1][n].getValue();
+				 }
+				 
+				 ((ReceptorNueron)theNetworkArray[layer][nueron]).getBpi().setWeightError(weightErrors);
+			}
+		}
+		
+		
+		
+		
+		
+		
 		net.setTheNetworkArray(theNetworkArray);
 		
 		

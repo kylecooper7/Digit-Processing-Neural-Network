@@ -5,6 +5,7 @@ public class ReceptorNueron extends Nueron
 	//var
 	protected int bias;
 	protected int[] weights;
+	protected BackpropInfo bpi;
 	
 	//constuc
 	public ReceptorNueron(int l, double v, int b, int[] w)
@@ -12,6 +13,7 @@ public class ReceptorNueron extends Nueron
 		super(l, v);
 		bias = b;
 		weights = w;
+		bpi = new BackpropInfo();
 	}
 	
 	//getrs
@@ -37,5 +39,13 @@ public class ReceptorNueron extends Nueron
 	{
 		//calculateVallue
 		this.value = valoo;
+	}
+
+	public BackpropInfo getBpi() {
+		return bpi;
+	}
+
+	public void setBpi(BackpropInfo bpi) {
+		this.bpi = bpi;
 	}
 }

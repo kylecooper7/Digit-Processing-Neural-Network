@@ -234,8 +234,11 @@ public static int[] byteArrayToIntArray(byte[] byteArray) {
 		}
 	
         
-        
+        theNetworkArray = theNetworkArray2;
 		return theNetworkArray2;
+	}
+	public Nueron[][] getTheNetworkArray2() throws IOException {
+		return theNetworkArray;
 	}
 	public void setTheNetworkArray(Nueron[][] theNetworkArray) throws IOException {
 		updateDataFile(theNetworkArray);
